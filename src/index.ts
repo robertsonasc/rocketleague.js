@@ -18,6 +18,7 @@ const fetchData = (url: string) =>
                 reject(err);
             }
             try {
+                console.log('result',result)
                 const jsonResult = JSON.parse(result);
                 resolve(jsonResult);
             } catch (error) {
@@ -39,6 +40,7 @@ class API {
     static async fetchUser(platform: Platform, username: string) {
         const instance = new API(platform, username);
         instance._raw = (await fetchData(BASE_URL.replace('{PLATFORM}', platform).replace('{USERNAME}', username))) as TrackerResponse;
+        console.log('instance._raw',instance._raw)
         if (instance._raw.errors?.length > 0) throw new Error(instance._raw.errors[0].message);
         return instance;
     }
